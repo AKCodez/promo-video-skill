@@ -1,372 +1,355 @@
-# Promo Video Skill for Claude Code
+<div align="center">
 
-Turn any SaaS product or repository into a professional promo video — 30s, 60s, or 90s — in both landscape (16:9) and portrait (9:16) formats. Powered by [Claude Code](https://claude.ai/code) + [Remotion](https://remotion.dev) + [ElevenLabs](https://elevenlabs.io).
+# promo-video-skill
 
-## What This Does
+### Turn any codebase into a professional promo video.
 
-This is a **Claude Code skill** that turns Claude into a motion graphics designer. Point it at your repo and it will:
+One command. Landscape + Portrait. Voiceover included.
 
-1. **Scan your codebase** — finds your product name, logo, brand colors, and tech stack automatically
-2. **Walk you through creative decisions** — duration, theme, voice, transitions, narrative structure
-3. **Build a Remotion project** — professional React-based video with smooth animations, 3D mockups, and spring physics
-4. **Generate voiceover** — AI narration via ElevenLabs with emotional presets (rage, whisper, confident, dramatic)
-5. **Render final MP4s** — landscape + portrait with background music, ready to post
-
-The entire workflow is interactive — Claude asks you questions, you pick options, and it builds everything.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-Skill-blueviolet)](https://claude.ai/code)
+[![Remotion](https://img.shields.io/badge/Remotion-Video_Engine-0B84F3)](https://remotion.dev)
+[![ElevenLabs](https://img.shields.io/badge/ElevenLabs-AI_Voice-000)](https://elevenlabs.io)
 
 ---
 
+**Point Claude Code at your repo. It scans your codebase, finds your logo, brand colors, and features — then builds an entire animated video with AI voiceover and renders it in both formats, ready to post.**
+
+</div>
+
+<br/>
+
+## How It Works
+
+```
+  Your Repo                    Claude Code                     Output
+ ┌──────────┐    ┌───────────────────────────────┐    ┌─────────────────┐
+ │ code     │    │  1. Scan codebase             │    │ landscape.mp4   │
+ │ logo     │───>│  2. Creative direction        │───>│ 1920 x 1080     │
+ │ readme   │    │  3. Build Remotion scenes     │    ├─────────────────┤
+ │ colors   │    │  4. Generate AI voiceover     │    │ portrait.mp4    │
+ └──────────┘    │  5. Render + combine audio    │    │ 1080 x 1920     │
+                 └───────────────────────────────┘    └─────────────────┘
+```
+
+<br/>
+
 ## Quick Start
 
-### 1. Install Both Skills
-
-This skill builds on top of [`remotion-dev/skills`](https://github.com/remotion-dev/skills) — Remotion's official skill with 30+ rule files covering animations, transitions, audio, captions, 3D, and more. **Install both:**
+### 1. Install
 
 ```bash
-# Remotion best-practices (peer dependency — required)
+# Remotion fundamentals (peer dependency)
 npx skills add remotion-dev/skills
 
-# This skill (promo video workflow)
+# Promo video workflow
 npx skills add AKCodez/promo-video-skill
 ```
 
-**What each skill provides:**
+### 2. Set your ElevenLabs API key
 
-| Skill | What It Does |
-|-------|-------------|
-| [`remotion-dev/skills`](https://github.com/remotion-dev/skills) | Remotion fundamentals — animations, spring physics, interpolation, transitions, sequencing, audio, captions, 3D, fonts, images, videos, charts, text animations, Tailwind integration, voiceover basics |
-| `AKCodez/promo-video-skill` | End-to-end promo video workflow — brand discovery, creative direction, narrative templates, multi-format rendering, ElevenLabs voiceover with emotional presets, background music, final render pipeline |
+```bash
+# macOS / Linux
+export ELEVENLABS_API_KEY="sk_your_key_here"
 
-The Remotion skill teaches Claude *how to write Remotion code correctly*. This skill teaches Claude *how to design and produce a complete promo video*.
-
-### 2. Set Up Your ElevenLabs API Key
-
-Get a free API key from [elevenlabs.io](https://elevenlabs.io) (sign up → Profile → API Keys):
-
-**Windows (PowerShell):**
-```powershell
+# Windows PowerShell
 $env:ELEVENLABS_API_KEY = "sk_your_key_here"
 ```
 
-**macOS / Linux:**
-```bash
-export ELEVENLABS_API_KEY="sk_your_key_here"
-```
+Get a free key at [elevenlabs.io](https://elevenlabs.io) (sign up → Profile → API Keys).
 
-**Or create a `.env` file** in your project root:
-```
-ELEVENLABS_API_KEY=sk_your_key_here
-```
-
-### 3. Run It
-
-Open Claude Code in your project directory and say:
+### 3. Run
 
 ```
 Create a promo video for this project
 ```
 
-Claude will take it from there — scanning your repo, asking creative questions, and building the video.
+That's it. Claude handles the rest.
 
-> **Tip:** You can also be more specific: "Create a 60-second dark mode promo video for this project targeting developers"
-
----
-
-## Prerequisites
-
-| Requirement | Required? | How to Install |
-|-------------|-----------|---------------|
-| **Node.js 18+** | Yes | [nodejs.org](https://nodejs.org) or `nvm install 18` |
-| **Claude Code** | Yes | [claude.ai/code](https://claude.ai/code) — CLI, desktop app, or VS Code extension |
-| **`remotion-dev/skills`** | Yes | `npx skills add remotion-dev/skills` ([source](https://github.com/remotion-dev/skills)) |
-| **ElevenLabs API Key** | Yes (for voiceover) | Free at [elevenlabs.io](https://elevenlabs.io) |
-| **ffmpeg** | Auto | Handled via `bunx remotion ffmpeg` (no install needed) |
-| **Whisper** | Optional | `pip install openai-whisper` (for voiceover timing verification) |
-
-### About the Remotion Skill (Peer Dependency)
-
-This skill depends on [`remotion-dev/skills`](https://github.com/remotion-dev/skills) — the official Remotion skill maintained by the Remotion team. It provides 30+ rule files that teach Claude how to write correct Remotion code:
-
-| Category | Rules Included |
-|----------|---------------|
-| **Core** | Animations, timing/interpolation, sequencing, compositions, parameters |
-| **Transitions** | Scene transitions (fade, slide, wipe, custom) |
-| **Media** | Images, videos, audio, GIFs, fonts, assets |
-| **Advanced** | 3D (Three.js), charts, text animations, captions/subtitles |
-| **Audio** | Sound effects, audio visualization, voiceover |
-| **Tools** | FFmpeg operations, measuring DOM/text, light leaks, Tailwind |
-
-Without this skill installed, Claude won't have the Remotion-specific knowledge needed to build correct, performant video compositions. **Install it first:**
-
-```bash
-npx skills add remotion-dev/skills
-```
-
-### About ffmpeg
-
-You do **not** need to install ffmpeg separately. This skill uses `bunx remotion ffmpeg` which bundles ffmpeg cross-platform. This solves the #1 pain point with video generation tools — ffmpeg PATH issues on Windows, macOS, and Linux.
-
-### About Whisper
-
-Whisper is OpenAI's speech recognition model used to verify voiceover timing. It checks that narration doesn't overlap between scenes. It's optional but highly recommended:
-
-```bash
-pip install openai-whisper
-```
+<br/>
 
 ---
 
-## How It Works (Detailed)
+<br/>
 
-### Phase 0: Preflight
+## The Pipeline
 
-Claude runs environment checks automatically:
-- Node.js version
-- API key configured
-- ffmpeg available
-- Whisper available
+<table>
+<tr>
+<td width="50%">
 
-If anything is missing, it tells you exactly how to fix it.
+### Phase 0 — Preflight
+Validates your environment automatically.
+Node.js, API key, ffmpeg, Whisper — if anything is missing, it tells you exactly how to fix it.
 
-### Phase 1: Product Discovery
+</td>
+<td width="50%">
 
-Claude scans your repository to understand your product:
-- Reads `package.json` for product name and description
-- Reads `README.md` for tagline and features
-- Finds logo files (`icon.png`, `logo.svg`, etc.)
-- Extracts brand colors from CSS and Tailwind config
-- Detects your tech stack from dependencies
+### Phase 1 — Brand Discovery
+Scans your repo for:
+- **Product name** from `package.json`, README
+- **Logo** files (`icon.png`, `logo.svg`)
+- **Brand colors** from CSS, Tailwind config
+- **Tech stack** from dependencies
 
-This information pre-populates the creative prompts so you're clicking, not typing.
+</td>
+</tr>
+<tr>
+<td>
 
-### Phase 2: Creative Direction
+### Phase 2 — Creative Direction
+Interactive prompts for:
+- Duration (30s / 60s / 90s)
+- Theme (dark / light)
+- Voice (5 built-in + browse more)
+- Narrative structure
+- Transition style + speed
 
-Claude asks you a series of questions:
+</td>
+<td>
 
-1. **Product brief** — What's the product? Who's the audience? What pain points to hit? What features to showcase?
-2. **CTA** — What action should viewers take? (Visit website, sign up, download, etc.)
-3. **Duration** — 30s (social ads), 60s (standard promo), or 90s (detailed walkthrough)
-4. **Theme** — Dark mode or light mode
-5. **Voice** — Choose from built-in voices or browse ElevenLabs' library
-6. **Narrative structure** — The Rage Hook, Problem Stack, Demo First, or Transformation
-7. **Transitions** — Metallic swoosh, zoom through, fade, or slide
-8. **Transition speed** — Quick (0.4s), medium (0.7s), or slow (1.2s)
+### Phase 3 — Build
+Creates a full Remotion project with:
+- Spring animations + 3D browser mockups
+- Shared scenes for landscape + portrait
+- 2-4 second scenes optimized for engagement
+- Preview in Remotion Studio before proceeding
 
-### Phase 3: Build
+</td>
+</tr>
+<tr>
+<td>
 
-Claude creates a full Remotion project with:
-- **Shared scene components** that work in both landscape and portrait
-- **LayoutContext** — a React context that adapts layouts based on format
-- **Spring animations** for natural, satisfying motion
-- **3D browser mockups** with perspective and shadow
-- **Scene durations optimized for engagement** (2-4 seconds each)
+### Phase 4 — Voiceover
+Generates AI narration via ElevenLabs with **emotional presets per scene**. Verifies timing with Whisper. Auto-fixes any overlaps.
 
-You preview in Remotion Studio (`npx remotion studio`) and give feedback before proceeding.
+</td>
+<td>
 
-### Phase 4: Voiceover
+### Phase 5 — Render
+Renders both formats, mixes background music, combines audio — outputs two final MP4s ready to post.
 
-Claude generates professional voiceover with emotional range:
+</td>
+</tr>
+</table>
 
-| Emotion | Use For |
-|---------|---------|
-| **Rage** | Hook frustration — "Are you serious right now?!" |
-| **Whisper** | Secret reveal — "What if you never had to guess again?" |
-| **Confident** | Feature descriptions — "Smart detection scans instantly" |
-| **Warm** | Social proof — "Join 50,000 users" |
-| **Dramatic** | CTA — "Try it now. Free." |
-
-After generation, timing is verified with Whisper to ensure narration aligns perfectly with visuals.
-
-### Phase 5: Final Render
-
-Claude renders both formats and combines with audio:
-- `out/promo-landscape-final.mp4` — 1920x1080 for YouTube, websites
-- `out/promo-portrait-final.mp4` — 1080x1920 for TikTok, Instagram Reels, YouTube Shorts
+<br/>
 
 ---
+
+<br/>
+
+## Voiceover Emotional Presets
+
+The AI voice changes emotion per scene — not one flat tone for the whole video.
+
+| Preset | Settings | Use For |
+|:-------|:---------|:--------|
+| **Rage** | Low stability, high style | Hook frustration — *"Are you serious right now?!"* |
+| **Whisper** | Low stability, intimate | Secret reveal — *"What if you never had to guess again?"* |
+| **Confident** | Mid stability, balanced | Feature demos — *"Smart detection scans instantly"* |
+| **Warm** | High stability, smooth | Social proof — *"Join 50,000 users"* |
+| **Dramatic** | Mid stability, high style | CTA — *"Try it now. Free."* |
+
+<br/>
 
 ## Narrative Templates
 
-The skill includes four proven story structures:
+Four proven story structures, each with scene breakdowns and voiceover tone guides:
 
-### The Rage Hook
-Frustration → Silence → Whisper → Reveal → Features → CTA
+| Template | Arc | Best For |
+|:---------|:----|:---------|
+| **The Rage Hook** | Frustration → Silence → Whisper → Reveal → CTA | Products solving a painful problem |
+| **The Problem Stack** | Pain → Pain → Pain → "What if..." → Solution → CTA | Multiple pain points to stack |
+| **The Demo First** | Magic moment → "How?" → Features → CTA | Products where the UX sells itself |
+| **The Transformation** | Before → After → How → Proof → CTA | Workflow improvements |
 
-Best for products that solve a deeply frustrating problem. The emotional contrast hooks viewers. Opens with someone raging about a problem, cuts to silence, then whispers the solution.
-
-### The Problem Stack
-Pain → Pain → Pain → "What if..." → Solution → Features → Proof → CTA
-
-Builds urgency through accumulation. Each pain point hits harder. The "What if..." pivot turns everything positive.
-
-### The Demo First
-Magic moment → "How?" → Explanation → Features → Proof → CTA
-
-Opens cold with the most impressive thing your product does. No intro, no buildup. Hook first, explain later.
-
-### The Transformation
-Before (pain) → After (joy) → How → Features → Proof → CTA
-
-Side-by-side or sequential before/after. Desaturated colors for "before", vibrant for "after".
-
----
+<br/>
 
 ## Available Voices
 
 ### Built-in (Free Tier)
 
 | Voice | Style | Best For |
-|-------|-------|---------|
-| **Matilda** | Warm, confident female | Default choice, versatile |
+|:------|:------|:---------|
+| **Matilda** | Warm, confident female | Default — versatile |
 | **Rachel** | Calm, authoritative female | Corporate, B2B |
-| **Daniel** | Polished, broadcast male | Advertising, product launches |
-| **Josh** | Friendly, conversational male | Consumer apps, casual |
+| **Daniel** | Polished, broadcast male | Advertising, launches |
+| **Josh** | Friendly, conversational male | Consumer apps |
 | **Adam** | Deep, dramatic male | Cinematic, intense hooks |
 
-### Browse More
+> Don't see what you want? Say *"Browse ElevenLabs voices for a sinister dramatic male voice"* and Claude will search the library, generate test samples, and let you audition them.
 
-Claude can search ElevenLabs' voice library and generate test samples:
-
-```
-Browse ElevenLabs voices for a sinister, dramatic male voice
-```
-
-Note: Library/premium voices require a paid ElevenLabs tier.
+<br/>
 
 ---
 
-## Background Music
+<br/>
 
-Three royalty-free tracks are bundled (from Pixabay):
-
-| Track | Style | Duration |
-|-------|-------|----------|
-| **Inspired Ambient** | Ambient, beautiful, atmospheric | Long |
-| **Motivational Day** | Background, commercial, uplifting | Long |
-| **Upbeat Corporate** | Upbeat, inspiring, energetic | Long |
-
-Music is mixed at 8-12% volume so it doesn't overpower the voiceover.
-
----
-
-## File Structure
+## What's Inside
 
 ```
-skills/
-└── promo-video/
-    ├── SKILL.md                    # Main skill — the 5-phase workflow Claude follows
-    ├── voiceover.md                # ElevenLabs generation + Whisper verification guide
-    ├── narrative-templates.md      # 4 proven story structures with scene breakdowns
-    ├── multi-format.md             # LayoutContext pattern for 16:9 + 9:16
-    ├── brand-discovery.md          # How auto-detection works
-    ├── metallic-swoosh.md          # Custom metallic shine transition component
-    ├── promo-patterns.md           # Visual inspiration: animations, effects, tips
-    ├── scripts/
-    │   ├── preflight.ts            # Environment validation
-    │   ├── discover-voices.ts      # ElevenLabs voice browser + sampler
-    │   ├── timing-calculator.ts    # TransitionSeries duration math
-    │   ├── discover-brand.ts       # Repo scanner for brand assets
-    │   └── generate-voiceover.ts   # Full voiceover generation pipeline
-    └── music/
-        ├── inspired-ambient-141686.mp3
-        ├── motivational-day-112790.mp3
-        └── the-upbeat-inspiring-corporate-142313.mp3
+skills/promo-video/
+│
+├── SKILL.md                     Main skill — 5-phase workflow
+├── voiceover.md                 ElevenLabs + Whisper timing guide
+├── narrative-templates.md       4 story structures with scene breakdowns
+├── multi-format.md              Responsive 16:9 + 9:16 architecture
+├── brand-discovery.md           Auto-detect logos, colors, fonts
+├── metallic-swoosh.md           Custom metallic shine transition
+├── promo-patterns.md            Visual inspiration catalog
+│
+├── scripts/
+│   ├── preflight.ts             Environment validation
+│   ├── discover-brand.ts        Repo scanner for brand assets
+│   ├── discover-voices.ts       ElevenLabs voice browser + sampler
+│   ├── timing-calculator.ts     TransitionSeries duration math
+│   └── generate-voiceover.ts    Full voiceover generation pipeline
+│
+└── music/
+    ├── inspired-ambient.mp3     Ambient, atmospheric
+    ├── motivational-day.mp3     Commercial, uplifting
+    └── upbeat-corporate.mp3     Inspiring, energetic
 ```
 
----
+<br/>
 
-## Scripts
+## Utility Scripts
 
-All scripts are TypeScript and run with `npx tsx`. They're cross-platform (Windows, macOS, Linux).
+All TypeScript, all cross-platform. Run with `npx tsx`.
 
-### preflight.ts — Environment Check
+<details>
+<summary><b>preflight.ts</b> — Environment check</summary>
 
 ```bash
 npx tsx scripts/preflight.ts
 ```
 
-Validates Node.js version, API key, ffmpeg, and Whisper. Prints clear pass/fail with fix instructions.
+Validates Node.js version, API key, ffmpeg, Whisper. Prints pass/fail with fix instructions.
 
-### discover-brand.ts — Brand Scanner
+</details>
+
+<details>
+<summary><b>discover-brand.ts</b> — Brand scanner</summary>
 
 ```bash
 npx tsx scripts/discover-brand.ts ~/path/to/your-repo
 ```
 
-Scans a repository for product name, description, logos, colors, URLs, and tech stack. Outputs JSON.
+Scans a repository and outputs: product name, description, logos, hex colors, URLs, tech stack.
 
-### discover-voices.ts — Voice Browser
+</details>
+
+<details>
+<summary><b>discover-voices.ts</b> — Voice browser</summary>
 
 ```bash
-# List all available voices
-npx tsx scripts/discover-voices.ts
-
-# Search for specific voice styles
-npx tsx scripts/discover-voices.ts --query "deep dramatic male"
-
-# Generate test samples for top 3 matches
 npx tsx scripts/discover-voices.ts --query "confident female" --samples 3
 ```
 
-### timing-calculator.ts — Duration Math
+Searches ElevenLabs, generates test MP3s in `voice-tests/` for audition.
+
+</details>
+
+<details>
+<summary><b>timing-calculator.ts</b> — Duration math</summary>
 
 ```bash
-npx tsx scripts/timing-calculator.ts \
-  --scenes "120,90,60,90,90,90,120,120" \
-  --transition 12 \
-  --fps 30 \
-  --target 60
+npx tsx scripts/timing-calculator.ts --scenes "120,90,60,90,90" --transition 12 --fps 30 --target 60
 ```
 
-Calculates exact effective duration accounting for TransitionSeries overlaps. Shows scene-by-scene timeline.
+Computes exact duration accounting for TransitionSeries overlaps. Shows scene-by-scene timeline.
 
-### generate-voiceover.ts — Full Pipeline
+</details>
+
+<details>
+<summary><b>generate-voiceover.ts</b> — Full pipeline</summary>
 
 ```bash
 npx tsx scripts/generate-voiceover.ts --config voiceover-config.json
 ```
 
-Generates per-section audio with emotional presets, concatenates with silence gaps, normalizes volume, and verifies timing with Whisper. See [voiceover.md](skills/promo-video/voiceover.md) for config format.
+Generates per-section audio with emotional presets, concatenates, normalizes, and verifies timing.
+
+</details>
+
+<br/>
 
 ---
 
-## Tips & Tricks
+<br/>
 
-### Getting Better Results
+## Prerequisites
 
-- **Be specific about your audience.** "College students struggling with online quizzes" is better than "students."
-- **Pick 3-5 features max.** More than that dilutes the message.
-- **Use the Rage Hook** for consumer products. It gets the highest engagement.
-- **Keep scenes to 2-4 seconds.** Longer scenes lose attention.
-- **Preview often.** Run `npx remotion studio` after building scenes, before voiceover.
+| Requirement | Required | Install |
+|:------------|:--------:|:--------|
+| Node.js 18+ | Yes | [nodejs.org](https://nodejs.org) |
+| Claude Code | Yes | [claude.ai/code](https://claude.ai/code) |
+| `remotion-dev/skills` | Yes | `npx skills add remotion-dev/skills` |
+| ElevenLabs API Key | Yes | Free at [elevenlabs.io](https://elevenlabs.io) |
+| ffmpeg | Auto | Bundled via `bunx remotion ffmpeg` |
+| Whisper | Optional | `pip install openai-whisper` |
 
-### Iterating
+<br/>
 
-After the first render, you can ask Claude to:
-- "Make the text bigger in scene 3"
-- "Speed up the transitions"
-- "Change the voice to something more dramatic"
-- "Add more emphasis on the speed feature"
-- "The voiceover in the opening doesn't match — fix the timing"
+### About the Remotion Skill
 
-### Common Issues
+This skill depends on [`remotion-dev/skills`](https://github.com/remotion-dev/skills) — the official Remotion skill with **30+ rule files**:
 
-| Problem | Solution |
-|---------|----------|
-| Voiceover overlaps between scenes | Claude auto-fixes this, but you can ask to regenerate |
-| Elements too small | Ask Claude to "scale up the elements" or "make text bigger" |
-| Video feels slow | Ask for "shorter scenes" or "quicker transitions" |
-| Portrait looks cramped | Claude uses LayoutContext to adapt, but you can request adjustments |
-| ffmpeg not found | This shouldn't happen — `bunx remotion ffmpeg` is used automatically |
-| ElevenLabs 401 error | Check your API key is set correctly in your environment |
-| Premium voice error | Use one of the 5 built-in voices (they work on the free tier) |
+| | |
+|:--|:--|
+| **Core** | Animations, timing, interpolation, sequencing, compositions |
+| **Transitions** | Fade, slide, wipe, custom presentations |
+| **Media** | Images, videos, audio, GIFs, fonts |
+| **Advanced** | Three.js 3D, charts, text animations, captions |
+| **Audio** | Sound effects, visualization, voiceover |
+| **Tools** | FFmpeg, DOM measurement, Tailwind, light leaks |
+
+The Remotion skill teaches Claude *how to write Remotion code*. This skill teaches Claude *how to produce a complete promo video*.
+
+<br/>
+
+### About ffmpeg
+
+You do **not** need to install ffmpeg. This skill uses `bunx remotion ffmpeg` — bundled, cross-platform, zero PATH configuration. Works on Windows, macOS, and Linux out of the box.
+
+<br/>
 
 ---
 
-## License
+<br/>
 
-MIT
+## Tips
+
+- **Be specific about your audience.** "College students struggling with online quizzes" > "students"
+- **Pick 3-5 features max.** More dilutes the message.
+- **Use the Rage Hook** for consumer products — highest engagement.
+- **Keep scenes to 2-4 seconds.** Shorter = more engaging.
+- **Preview before voiceover.** Run `npx remotion studio` after building scenes.
+
+<br/>
+
+## Troubleshooting
+
+| Problem | Fix |
+|:--------|:----|
+| Voiceover overlaps | Claude auto-fixes this — or ask to regenerate |
+| Elements too small | "Scale up the elements" or "make text bigger" |
+| Video feels slow | "Shorter scenes" or "quicker transitions" |
+| Portrait looks cramped | Claude adapts via LayoutContext — request adjustments if needed |
+| ElevenLabs 401 | Check API key in environment |
+| Premium voice error | Use one of the 5 built-in voices (free tier) |
+
+<br/>
 
 ---
 
-Built with the lessons learned from producing real promo videos. Every pain point in this skill was hit during actual production and fixed.
+<div align="center">
+
+**MIT License**
+
+Built from real production experience. Every pain point was hit during actual video production and fixed in this skill.
+
+[Install](https://github.com/AKCodez/promo-video-skill) · [Remotion](https://remotion.dev) · [ElevenLabs](https://elevenlabs.io) · [Claude Code](https://claude.ai/code)
+
+</div>
