@@ -36,17 +36,22 @@ One command. Landscape + Portrait. Voiceover included.
 
 ## Quick Start
 
-### 1. Install
+### 1. Install the skills
+
+Open any terminal and run:
 
 ```bash
-# Remotion fundamentals (peer dependency)
-npx skills add remotion-dev/skills
-
-# Promo video workflow
-npx skills add AKCodez/promo-video-skill
+npx skills add remotion-dev/skills         # Remotion fundamentals (peer dependency)
+npx skills add AKCodez/promo-video-skill   # Promo video workflow
 ```
 
-### 2. Set your ElevenLabs API key
+This installs two Claude Code skills — one teaches Claude how to write Remotion code, the other teaches Claude how to produce a complete promo video.
+
+### 2. Get your ElevenLabs API key
+
+Sign up for free at [elevenlabs.io](https://elevenlabs.io) → go to **Profile** → **API Keys** → copy your key.
+
+Then set it in your environment:
 
 ```bash
 # macOS / Linux
@@ -56,15 +61,61 @@ export ELEVENLABS_API_KEY="sk_your_key_here"
 $env:ELEVENLABS_API_KEY = "sk_your_key_here"
 ```
 
-Get a free key at [elevenlabs.io](https://elevenlabs.io) (sign up → Profile → API Keys).
+### 3. Open Claude Code in your project
 
-### 3. Run
+Navigate to the repo you want to create a video for, then launch Claude Code:
 
+```bash
+cd ~/your-saas-project
+claude                            # opens Claude Code CLI
+```
+
+Or open the project folder in **VS Code** with the Claude Code extension, or use the **Claude Code desktop app**.
+
+### 4. Prompt Claude
+
+Once Claude Code is running, just type a prompt. Claude will scan your repo, ask you creative questions, and build everything.
+
+**Simple:**
 ```
 Create a promo video for this project
 ```
 
-That's it. Claude handles the rest.
+**With direction:**
+```
+Create a 60-second dark mode promo video targeting developers
+```
+
+**Detailed:**
+```
+Create a 90-second promo video for this Chrome extension. Use the Rage Hook 
+narrative — open with someone frustrated, then reveal the product. Dark theme, 
+dramatic male voice, metallic swoosh transitions.
+```
+
+That's it. Claude handles the rest — scanning your codebase, building scenes, generating voiceover, and rendering both landscape and portrait MP4s.
+
+<br/>
+
+---
+
+<br/>
+
+## Example Prompts
+
+Different prompts give different results. Here are directions you can give Claude:
+
+| What You Say | What You Get |
+|:-------------|:-------------|
+| *"Create a promo video for this project"* | Claude picks everything — scans your repo and makes smart defaults |
+| *"30-second social ad, light mode, fast transitions"* | Quick punchy ad for Instagram/TikTok |
+| *"90-second detailed walkthrough with all features"* | Longer format covering every feature |
+| *"Use the Rage Hook — someone frustrated then discovers the solution"* | Emotional opening with anger → silence → whisper reveal |
+| *"Demo First narrative — show the product working immediately"* | Opens cold with the most impressive feature |
+| *"Dark mode, cinematic, Adam voice, metallic swoosh transitions"* | Specific visual + audio direction |
+| *"Make the CTA 'Visit fastsolve.app' with the ghost logo"* | Specific branding for the closing |
+| *"Browse ElevenLabs for a sinister dramatic male voice"* | Claude searches voices and generates test samples for you |
+| *"Speed up the transitions and make the text bigger in scene 3"* | Iterate on an existing video after first render |
 
 <br/>
 
