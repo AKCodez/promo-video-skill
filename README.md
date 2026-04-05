@@ -18,21 +18,30 @@ The entire workflow is interactive — Claude asks you questions, you pick optio
 
 ## Quick Start
 
-### 1. Install the Skill
+### 1. Install Both Skills
+
+This skill builds on top of [`remotion-dev/skills`](https://github.com/remotion-dev/skills) — Remotion's official skill with 30+ rule files covering animations, transitions, audio, captions, 3D, and more. **Install both:**
 
 ```bash
-npx skills add <your-username>/promo-video-skill
-```
-
-You also need the Remotion best-practices skill (peer dependency):
-
-```bash
+# Remotion best-practices (peer dependency — required)
 npx skills add remotion-dev/skills
+
+# This skill (promo video workflow)
+npx skills add AKCodez/promo-video-skill
 ```
+
+**What each skill provides:**
+
+| Skill | What It Does |
+|-------|-------------|
+| [`remotion-dev/skills`](https://github.com/remotion-dev/skills) | Remotion fundamentals — animations, spring physics, interpolation, transitions, sequencing, audio, captions, 3D, fonts, images, videos, charts, text animations, Tailwind integration, voiceover basics |
+| `AKCodez/promo-video-skill` | End-to-end promo video workflow — brand discovery, creative direction, narrative templates, multi-format rendering, ElevenLabs voiceover with emotional presets, background music, final render pipeline |
+
+The Remotion skill teaches Claude *how to write Remotion code correctly*. This skill teaches Claude *how to design and produce a complete promo video*.
 
 ### 2. Set Up Your ElevenLabs API Key
 
-Get a free API key from [elevenlabs.io](https://elevenlabs.io):
+Get a free API key from [elevenlabs.io](https://elevenlabs.io) (sign up → Profile → API Keys):
 
 **Windows (PowerShell):**
 ```powershell
@@ -59,6 +68,8 @@ Create a promo video for this project
 
 Claude will take it from there — scanning your repo, asking creative questions, and building the video.
 
+> **Tip:** You can also be more specific: "Create a 60-second dark mode promo video for this project targeting developers"
+
 ---
 
 ## Prerequisites
@@ -66,10 +77,30 @@ Claude will take it from there — scanning your repo, asking creative questions
 | Requirement | Required? | How to Install |
 |-------------|-----------|---------------|
 | **Node.js 18+** | Yes | [nodejs.org](https://nodejs.org) or `nvm install 18` |
-| **ElevenLabs API Key** | Yes | Free at [elevenlabs.io](https://elevenlabs.io) |
-| **Claude Code** | Yes | [claude.ai/code](https://claude.ai/code) |
+| **Claude Code** | Yes | [claude.ai/code](https://claude.ai/code) — CLI, desktop app, or VS Code extension |
+| **`remotion-dev/skills`** | Yes | `npx skills add remotion-dev/skills` ([source](https://github.com/remotion-dev/skills)) |
+| **ElevenLabs API Key** | Yes (for voiceover) | Free at [elevenlabs.io](https://elevenlabs.io) |
 | **ffmpeg** | Auto | Handled via `bunx remotion ffmpeg` (no install needed) |
 | **Whisper** | Optional | `pip install openai-whisper` (for voiceover timing verification) |
+
+### About the Remotion Skill (Peer Dependency)
+
+This skill depends on [`remotion-dev/skills`](https://github.com/remotion-dev/skills) — the official Remotion skill maintained by the Remotion team. It provides 30+ rule files that teach Claude how to write correct Remotion code:
+
+| Category | Rules Included |
+|----------|---------------|
+| **Core** | Animations, timing/interpolation, sequencing, compositions, parameters |
+| **Transitions** | Scene transitions (fade, slide, wipe, custom) |
+| **Media** | Images, videos, audio, GIFs, fonts, assets |
+| **Advanced** | 3D (Three.js), charts, text animations, captions/subtitles |
+| **Audio** | Sound effects, audio visualization, voiceover |
+| **Tools** | FFmpeg operations, measuring DOM/text, light leaks, Tailwind |
+
+Without this skill installed, Claude won't have the Remotion-specific knowledge needed to build correct, performant video compositions. **Install it first:**
+
+```bash
+npx skills add remotion-dev/skills
+```
 
 ### About ffmpeg
 
